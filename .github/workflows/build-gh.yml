@@ -44,4 +44,4 @@ jobs:
         with:
           context: .
           push: true
-          tags: "${{ env.REGISTRY }}/${{ github.repository_owner }}/lago-api:${{ steps.docker_tag.outputs.tag }}-amd64"
+          tags: "${{ env.REGISTRY }}/${{ github.repository_owner }}/lago-api:${{ steps.docker_tag.outputs.version }}-amd64"
