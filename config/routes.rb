@@ -1,13 +1,7 @@
 # frozen_string_literal: true
 
 Rails.application.routes.draw do
-  # Data API REST proxies for premium analytics endpoints
-  get "/mrrs/:organization_id", to: "data_api_proxy#mrrs"
-  get "/mrrs/:organization_id/plans", to: "data_api_proxy#mrrs_plans"
-  get "/revenue_streams/:organization_id", to: "data_api_proxy#revenue_streams"
-  get "/revenue_streams/:organization_id/plans", to: "data_api_proxy#revenue_streams_plans"
-  get "/revenue_streams/:organization_id/customers", to: "data_api_proxy#revenue_streams_customers"
-  get "/usages/:organization_id/invoiced", to: "data_api_proxy#usages_invoiced"
+
   mount Sidekiq::Web, at: "/sidekiq" if defined? Sidekiq::Web
   mount Karafka::Web::App, at: "/karafka" if ENV["LAGO_KARAFKA_WEB"]
   mount GraphiQL::Rails::Engine, at: "/graphiql", graphql_path: "/graphql" if Rails.env.development?
@@ -128,4 +122,12 @@ Rails.application.routes.draw do
     :constraints => lambda { |req|
       req.path.exclude?("rails/active_storage")
     }
+
+  # Data API REST proxies for premium analytics endpoints
+  get "/mrrs/:organization_id", to: "data_api_proxy#mrrs"
+  get "/mrrs/:organization_id/plans", to: "data_api_proxy#mrrs_plans"
+  get "/revenue_streams/:organization_id", to: "data_api_proxy#revenue_streams"
+  get "/revenue_streams/:organization_id/plans", to: "data_api_proxy#revenue_streams_plans"
+  get "/revenue_streams/:organization_id/customers", to: "data_api_proxy#revenue_streams_customers"
+  get "/usages/:organization_id/invoiced", to: "data_api_proxy#usages_invoiced"
 end
