@@ -25,7 +25,14 @@ class DataApiProxyController < ApplicationController
       }
       GRAPHQL
     )
-    render json: result['data']['dataApiMrrs']
+    Rails.logger.error(result.inspect)
+    if result['errors']
+      render json: { errors: result['errors'] }, status: :unprocessable_entity
+    elsif result['data'] && result['data']['dataApiMrrs']
+      render json: result['data']['dataApiMrrs']
+    else
+      render json: { error: "No data returned from GraphQL" }, status: :internal_server_error
+    end
   end
 
   # Proxy for /mrrs/:organization_id/plans/
@@ -60,7 +67,14 @@ class DataApiProxyController < ApplicationController
       }
       GRAPHQL
     )
-    render json: result['data']['dataApiMrrsPlans']
+    Rails.logger.error(result.inspect)
+    if result['errors']
+      render json: { errors: result['errors'] }, status: :unprocessable_entity
+    elsif result['data'] && result['data']['dataApiMrrsPlans']
+      render json: result['data']['dataApiMrrsPlans']
+    else
+      render json: { error: "No data returned from GraphQL" }, status: :internal_server_error
+    end
   end
 
   # Proxy for /revenue_streams/:organization_id/
@@ -85,7 +99,14 @@ class DataApiProxyController < ApplicationController
       }
       GRAPHQL
     )
-    render json: result['data']['dataApiRevenueStreams']
+    Rails.logger.error(result.inspect)
+    if result['errors']
+      render json: { errors: result['errors'] }, status: :unprocessable_entity
+    elsif result['data'] && result['data']['dataApiRevenueStreams']
+      render json: result['data']['dataApiRevenueStreams']
+    else
+      render json: { error: "No data returned from GraphQL" }, status: :internal_server_error
+    end
   end
 
   # Proxy for /revenue_streams/:organization_id/plans/
@@ -121,7 +142,14 @@ class DataApiProxyController < ApplicationController
       }
       GRAPHQL
     )
-    render json: result['data']['dataApiRevenueStreamsPlans']
+    Rails.logger.error(result.inspect)
+    if result['errors']
+      render json: { errors: result['errors'] }, status: :unprocessable_entity
+    elsif result['data'] && result['data']['dataApiRevenueStreamsPlans']
+      render json: result['data']['dataApiRevenueStreamsPlans']
+    else
+      render json: { error: "No data returned from GraphQL" }, status: :internal_server_error
+    end
   end
 
   # Proxy for /revenue_streams/:organization_id/customers/
@@ -154,7 +182,14 @@ class DataApiProxyController < ApplicationController
       }
       GRAPHQL
     )
-    render json: result['data']['dataApiRevenueStreamsCustomers']
+    Rails.logger.error(result.inspect)
+    if result['errors']
+      render json: { errors: result['errors'] }, status: :unprocessable_entity
+    elsif result['data'] && result['data']['dataApiRevenueStreamsCustomers']
+      render json: result['data']['dataApiRevenueStreamsCustomers']
+    else
+      render json: { error: "No data returned from GraphQL" }, status: :internal_server_error
+    end
   end
 
   # Proxy for /usages/:organization_id/invoiced/
@@ -174,7 +209,14 @@ class DataApiProxyController < ApplicationController
       }
       GRAPHQL
     )
-    render json: result['data']['dataApiUsagesInvoiced']
+    Rails.logger.error(result.inspect)
+    if result['errors']
+      render json: { errors: result['errors'] }, status: :unprocessable_entity
+    elsif result['data'] && result['data']['dataApiUsagesInvoiced']
+      render json: result['data']['dataApiUsagesInvoiced']
+    else
+      render json: { error: "No data returned from GraphQL" }, status: :internal_server_error
+    end
   end
 
   private
