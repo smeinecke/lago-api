@@ -3,7 +3,7 @@
 class DataApiProxyController < ApplicationController
   # Proxy for /mrrs/:organization_id/
   def mrrs
-    result = LagoSchema.execute(
+    result = LagoApiSchema.execute(
       <<~GRAPHQL,
         variables: { organizationId: params[:organization_id] },
         context: graphql_context
@@ -30,7 +30,7 @@ class DataApiProxyController < ApplicationController
 
   # Proxy for /mrrs/:organization_id/plans/
   def mrrs_plans
-    result = LagoSchema.execute(
+    result = LagoApiSchema.execute(
       <<~GRAPHQL,
         variables: { organizationId: params[:organization_id] },
         context: graphql_context
@@ -65,7 +65,7 @@ class DataApiProxyController < ApplicationController
 
   # Proxy for /revenue_streams/:organization_id/
   def revenue_streams
-    result = LagoSchema.execute(
+    result = LagoApiSchema.execute(
       <<~GRAPHQL,
         variables: { organizationId: params[:organization_id] },
         context: graphql_context
@@ -90,7 +90,7 @@ class DataApiProxyController < ApplicationController
 
   # Proxy for /revenue_streams/:organization_id/plans/
   def revenue_streams_plans
-    result = LagoSchema.execute(
+    result = LagoApiSchema.execute(
       <<~GRAPHQL,
         variables: { organizationId: params[:organization_id] },
         context: graphql_context
@@ -126,7 +126,7 @@ class DataApiProxyController < ApplicationController
 
   # Proxy for /revenue_streams/:organization_id/customers/
   def revenue_streams_customers
-    result = LagoSchema.execute(
+    result = LagoApiSchema.execute(
       <<~GRAPHQL,
         variables: { organizationId: params[:organization_id] },
         context: graphql_context
@@ -159,7 +159,7 @@ class DataApiProxyController < ApplicationController
 
   # Proxy for /usages/:organization_id/invoiced/
   def usages_invoiced
-    result = LagoSchema.execute(
+    result = LagoApiSchema.execute(
       <<~GRAPHQL,
         variables: { organizationId: params[:organization_id] },
         context: graphql_context
