@@ -117,12 +117,6 @@ Rails.application.routes.draw do
     end
   end
 
-  match "*unmatched" => "application#not_found",
-    :via => %i[get post put delete patch],
-    :constraints => lambda { |req|
-      req.path.exclude?("rails/active_storage")
-    }
-
   # Data API REST proxies for premium analytics endpoints
   get "/mrrs/:organization_id", to: "data_api_proxy#mrrs"
   get "/mrrs/:organization_id/plans", to: "data_api_proxy#mrrs_plans"
@@ -130,4 +124,10 @@ Rails.application.routes.draw do
   get "/revenue_streams/:organization_id/plans", to: "data_api_proxy#revenue_streams_plans"
   get "/revenue_streams/:organization_id/customers", to: "data_api_proxy#revenue_streams_customers"
   get "/usages/:organization_id/invoiced", to: "data_api_proxy#usages_invoiced"
+
+  match "*unmatched" => "application#not_found",
+    :via => %i[get post put delete patch],
+    :constraints => lambda { |req|
+      req.path.exclude?("rails/active_storage")
+    }
 end
