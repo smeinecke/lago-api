@@ -9,6 +9,7 @@ on:
         required: true
 env:
   REGISTRY_IMAGE: getlago/api
+  REGISTRY: ghcr.io
 
 jobs:
   build-images:
@@ -46,8 +47,9 @@ jobs:
       - name: Log In to Docker Hub
         uses: docker/login-action@v3
         with:
-          username: ${{ secrets.DOCKERHUB_USERNAME }}
-          password: ${{ secrets.DOCKERHUB_PASSWORD }}
+          registry: ${{ env.REGISTRY }}
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Add version into docker image
         id: add_version
@@ -114,8 +116,9 @@ jobs:
       - name: Log in to Docker Hub
         uses: docker/login-action@v3
         with:
-          username: ${{ secrets.DOCKERHUB_USERNAME }}
-          password: ${{ secrets.DOCKERHUB_PASSWORD }}
+          registry: ${{ env.REGISTRY }}
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Create manifest and push
         working-directory: ./_tmp/${{ github.run_id }}/${{ github.run_attempt}}/digests
