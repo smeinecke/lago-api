@@ -9,7 +9,7 @@ module Organizations
 
     def call
       organization = Organization.new(
-        params.slice(:name, :document_numbering)
+        params.slice(:name, :document_numbering).merge(premium_integrations: premium_integrations)
       )
 
       ActiveRecord::Base.transaction do

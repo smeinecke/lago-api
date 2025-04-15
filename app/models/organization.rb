@@ -99,7 +99,7 @@ class Organization < ApplicationRecord
     multi_entities_enterprise
     analytics_dashboards
   ].freeze
-  PREMIUM_INTEGRATIONS = INTEGRATIONS - %w[anrok]
+  PREMIUM_INTEGRATIONS = INTEGRATIONS
 
   enum :document_numbering, DOCUMENT_NUMBERINGS
 
