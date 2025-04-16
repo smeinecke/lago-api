@@ -97,7 +97,7 @@ class DataApiProxyController < ApplicationController
           usageBasedFeeAmountCents
           endOfPeriodDt
           startOfPeriodDt
-        }  
+        }
       }
     GRAPHQL
 
@@ -142,7 +142,7 @@ class DataApiProxyController < ApplicationController
             totalCount
             totalPages
           }
-        }  
+        }
       }
     GRAPHQL
 
@@ -184,7 +184,7 @@ class DataApiProxyController < ApplicationController
             totalCount
             totalPages
           }
-        }  
+        }
       }
     GRAPHQL
 
@@ -234,6 +234,15 @@ class DataApiProxyController < ApplicationController
   end
 
   private
+
+  # Prefer organization_id param, fall back to header-based concern
+  def current_organization
+    if params[:organization_id].present?
+      @current_organization ||= Organization.find_by(id: params[:organization_id])
+    else
+      super if defined?(super)
+    end
+  end
 
   def graphql_context
     # Add any context needed for authentication, etc.
