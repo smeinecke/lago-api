@@ -3,9 +3,10 @@
 class DataApiProxyController < ApplicationController
   # Proxy for /mrrs/:organization_id/
   def mrrs
+    billing_entity_id = current_organization.default_billing_entity.id
     query = <<~GRAPHQL
-      query Mrrs($organizationId: ID!) {
-        dataApiMrrs(organizationId: $organizationId) {
+      query Mrrs($billingEntityId: ID) {
+        dataApiMrrs(billingEntityId: $billingEntityId) {
           collection {
             amountCurrency
             startingMrr
@@ -24,7 +25,7 @@ class DataApiProxyController < ApplicationController
 
     result = LagoApiSchema.execute(
       query,
-      variables: { organizationId: params[:organization_id] },
+      variables: { billingEntityId: billing_entity_id },
       context: graphql_context
     )
     Rails.logger.error(result.inspect)
@@ -204,21 +205,22 @@ class DataApiProxyController < ApplicationController
 
   # Proxy for /usages/:organization_id/invoiced/
   def usages_invoiced
+    billing_entity_id = current_organization.default_billing_entity.id
     query = <<~GRAPHQL
-      query UsagesInvoiced($organizationId: ID!) {
-        dataApiUsagesInvoiced(organizationId: $organizationId) {
+      query UsagesInvoiced($billingEntityId: ID) {
+        invoicedUsages(billingEntityId: $billingEntityId) {
           endOfPeriodDt
           startOfPeriodDt
           billableMetricCode
           amountCents
           amountCurrency
-        }  
+        }
       }
     GRAPHQL
 
     result = LagoApiSchema.execute(
       query,
-      variables: { organizationId: params[:organization_id] },
+      variables: { billingEntityId: billing_entity_id },
       context: graphql_context
     )
     Rails.logger.error(result.inspect)
