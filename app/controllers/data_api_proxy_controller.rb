@@ -3,10 +3,7 @@
 class DataApiProxyController < ApplicationController
   # Proxy for /mrrs/:organization_id/
   def mrrs
-    result = LagoApiSchema.execute(
-      <<~GRAPHQL,
-        variables: { organizationId: params[:organization_id] },
-        context: graphql_context
+    query = <<~GRAPHQL
       query Mrrs($organizationId: ID!) {
         dataApiMrrs(organizationId: $organizationId) {
           collection {
@@ -23,7 +20,12 @@ class DataApiProxyController < ApplicationController
           }
         }
       }
-      GRAPHQL
+    GRAPHQL
+
+    result = LagoApiSchema.execute(
+      query,
+      variables: { organizationId: params[:organization_id] },
+      context: graphql_context
     )
     Rails.logger.error(result.inspect)
     if result['errors']
@@ -37,10 +39,7 @@ class DataApiProxyController < ApplicationController
 
   # Proxy for /mrrs/:organization_id/plans/
   def mrrs_plans
-    result = LagoApiSchema.execute(
-      <<~GRAPHQL,
-        variables: { organizationId: params[:organization_id] },
-        context: graphql_context
+    query = <<~GRAPHQL
       query MrrsPlans($organizationId: ID!) {
         dataApiMrrsPlans(organizationId: $organizationId) {
           collection {
@@ -65,7 +64,12 @@ class DataApiProxyController < ApplicationController
           }
         }
       }
-      GRAPHQL
+    GRAPHQL
+
+    result = LagoApiSchema.execute(
+      query,
+      variables: { organizationId: params[:organization_id] },
+      context: graphql_context
     )
     Rails.logger.error(result.inspect)
     if result['errors']
@@ -79,10 +83,7 @@ class DataApiProxyController < ApplicationController
 
   # Proxy for /revenue_streams/:organization_id/
   def revenue_streams
-    result = LagoApiSchema.execute(
-      <<~GRAPHQL,
-        variables: { organizationId: params[:organization_id] },
-        context: graphql_context
+    query = <<~GRAPHQL
       query RevenueStreams($organizationId: ID!) {
         dataApiRevenueStreams(organizationId: $organizationId) {
           amountCurrency
@@ -97,7 +98,12 @@ class DataApiProxyController < ApplicationController
           startOfPeriodDt
         }  
       }
-      GRAPHQL
+    GRAPHQL
+
+    result = LagoApiSchema.execute(
+      query,
+      variables: { organizationId: params[:organization_id] },
+      context: graphql_context
     )
     Rails.logger.error(result.inspect)
     if result['errors']
@@ -111,10 +117,7 @@ class DataApiProxyController < ApplicationController
 
   # Proxy for /revenue_streams/:organization_id/plans/
   def revenue_streams_plans
-    result = LagoApiSchema.execute(
-      <<~GRAPHQL,
-        variables: { organizationId: params[:organization_id] },
-        context: graphql_context
+    query = <<~GRAPHQL
       query RevenueStreamsPlans($organizationId: ID!) {
         dataApiRevenueStreamsPlans(organizationId: $organizationId) {
           collection {
@@ -140,7 +143,12 @@ class DataApiProxyController < ApplicationController
           }
         }  
       }
-      GRAPHQL
+    GRAPHQL
+
+    result = LagoApiSchema.execute(
+      query,
+      variables: { organizationId: params[:organization_id] },
+      context: graphql_context
     )
     Rails.logger.error(result.inspect)
     if result['errors']
@@ -154,10 +162,7 @@ class DataApiProxyController < ApplicationController
 
   # Proxy for /revenue_streams/:organization_id/customers/
   def revenue_streams_customers
-    result = LagoApiSchema.execute(
-      <<~GRAPHQL,
-        variables: { organizationId: params[:organization_id] },
-        context: graphql_context
+    query = <<~GRAPHQL
       query RevenueStreamsCustomers($organizationId: ID!) {
         dataApiRevenueStreamsCustomers(organizationId: $organizationId) {
           collection {
@@ -180,7 +185,12 @@ class DataApiProxyController < ApplicationController
           }
         }  
       }
-      GRAPHQL
+    GRAPHQL
+
+    result = LagoApiSchema.execute(
+      query,
+      variables: { organizationId: params[:organization_id] },
+      context: graphql_context
     )
     Rails.logger.error(result.inspect)
     if result['errors']
@@ -194,10 +204,7 @@ class DataApiProxyController < ApplicationController
 
   # Proxy for /usages/:organization_id/invoiced/
   def usages_invoiced
-    result = LagoApiSchema.execute(
-      <<~GRAPHQL,
-        variables: { organizationId: params[:organization_id] },
-        context: graphql_context
+    query = <<~GRAPHQL
       query UsagesInvoiced($organizationId: ID!) {
         dataApiUsagesInvoiced(organizationId: $organizationId) {
           endOfPeriodDt
@@ -207,7 +214,12 @@ class DataApiProxyController < ApplicationController
           amountCurrency
         }  
       }
-      GRAPHQL
+    GRAPHQL
+
+    result = LagoApiSchema.execute(
+      query,
+      variables: { organizationId: params[:organization_id] },
+      context: graphql_context
     )
     Rails.logger.error(result.inspect)
     if result['errors']
